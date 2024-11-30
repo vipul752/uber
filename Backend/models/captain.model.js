@@ -72,6 +72,9 @@ captainSchema.methods.generateAuthToken = function () {
 };
 
 captainSchema.methods.comparePassword = async function (enteredPassword) {
+  if (!enteredPassword || !this.password) {
+    throw new Error("Missing entered or stored password");
+  }
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
